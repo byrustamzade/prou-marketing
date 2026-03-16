@@ -127,6 +127,7 @@ Customize from config:
 - `orders.model`, `orders.table`, `orders.primary_key`
 - `middleware.except` to skip tracking admin/internal routes
 - `track.only_with_utm` if you only want UTM-tagged touchpoints
+- `track.dedupe_seconds` to skip identical rapid reloads (set `0` to disable)
 
 ## Publish to GitHub
 
