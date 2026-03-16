@@ -65,13 +65,36 @@ class MarketingTouchpointsManager
         $token ??= $this->tokenFromRequest($request);
         $visitor = $this->ensureVisitor($request, $token);
         $utm = $this->extractUtmPayload($request);
+        $now = now();
+        $landingUrl = $request->fullUrl();
+        $path = $request->getPathInfo();
+        $method = strtoupper($request->method());
+
+        $dedupeSeconds = max(0, (int) $this->config->get('marketing-touchpoints.track.dedupe_seconds', 0));
+        if ($dedupeSeconds > 0) {
+            $windowStart = $now->copy()->subSeconds($dedupeSeconds);
+
+            $duplicate = MarketingTouchpoint::query()
+                ->where('visitor_id', $visitor->id)
+                ->where('token', $token)
+                ->where('landing_url', $landingUrl)
+                ->where('path', $path)
+                ->where('method', $method)
+                ->where('occurred_at', '>=', $windowStart)
+                ->latest('occurred_at')
+                ->first();
+
+            if ($duplicate !== null) {
+                return $duplicate;
+            }
+        }
 
         return MarketingTouchpoint::query()->create([
             'visitor_id' => $visitor->id,
             'token' => $token,
-            'landing_url' => $request->fullUrl(),
-            'path' => $request->getPathInfo(),
-            'method' => strtoupper($request->method()),
+            'landing_url' => $landingUrl,
+            'path' => $path,
+            'method' => $method,
             'referer' => $request->headers->get('referer'),
             'utm_source' => Arr::get($utm, 'utm_source'),
             'utm_medium' => Arr::get($utm, 'utm_medium'),
@@ -85,7 +108,7 @@ class MarketingTouchpointsManager
             'query' => $request->query(),
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
-            'occurred_at' => now(),
+            'occurred_at' => $now,
         ]);
     }
 

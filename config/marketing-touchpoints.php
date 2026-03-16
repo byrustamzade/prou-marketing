@@ -6,6 +6,9 @@ return [
     'track' => [
         'methods' => ['GET'],
         'only_with_utm' => false,
+        // Skip writing a new touchpoint when the same visitor hits the exact same URL
+        // again within this many seconds. Set to 0 to disable.
+        'dedupe_seconds' => 300,
         'utm_keys' => [
             'utm_source',
             'utm_medium',
