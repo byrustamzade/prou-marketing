@@ -1,0 +1,31 @@
+{
+    "name": "mrustamzade/laravel-marketing-touchpoints",
+    "description": "Laravel package to track marketing touchpoints and connect them to orders.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "illuminate/database": "^10.0|^11.0|^12.0",
+        "illuminate/http": "^10.0|^11.0|^12.0",
+        "illuminate/routing": "^10.0|^11.0|^12.0",
+        "illuminate/support": "^10.0|^11.0|^12.0",
+        "illuminate/view": "^10.0|^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MRustamzade\\MarketingTouchpoints\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MRustamzade\\MarketingTouchpoints\\MarketingTouchpointsServiceProvider"
+            ],
+            "aliases": {
+                "MarketingTouchpoints": "MRustamzade\\MarketingTouchpoints\\Facades\\MarketingTouchpoints"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

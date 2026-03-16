@@ -13,7 +13,7 @@ Track user marketing touchpoints (including UTM params) with a unique visitor to
 ## Installation
 
 ```bash
-composer require rustamzade/laravel-marketing-touchpoints
+composer require mrustamzade/laravel-marketing-touchpoints
 ```
 
 Publish config and migrations:
@@ -52,7 +52,7 @@ Route::middleware(['web', 'track-touchpoints'])->group(function (): void {
 In checkout success flow:
 
 ```php
-use Rustam\MarketingTouchpoints\Facades\MarketingTouchpoints;
+use MRustamzade\MarketingTouchpoints\Facades\MarketingTouchpoints;
 
 MarketingTouchpoints::linkOrder($order); // Eloquent model
 ```
@@ -78,7 +78,7 @@ MarketingTouchpoints::linkOrder([
 Add this to your order model to auto-link when created:
 
 ```php
-use Rustam\MarketingTouchpoints\Concerns\LinksMarketingTouchpoints;
+use MRustamzade\MarketingTouchpoints\Concerns\LinksMarketingTouchpoints;
 
 class Order extends Model
 {
