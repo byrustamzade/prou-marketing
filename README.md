@@ -10,6 +10,10 @@ Track user marketing touchpoints (including UTM params) with a unique visitor to
 - Supports custom order table and primary key resolution.
 - Includes an admin route (`/marketing`) for viewing touchpoints by token or order ID.
 
+## Screenshot
+
+![Marketing Touchpoints Dashboard](docs/images/marketing-dashboard.png)
+
 ## Installation
 
 ```bash
